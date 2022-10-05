@@ -1,0 +1,92 @@
+ syn t ax = " p r o t o 3 " ;
+2
+3 package app ;
+4
+5 s e r v i c e DartsMatch {
+6 rpc CreateMatch ( MatchRequest ) r e t u r n s ( MatchResponse ) {}
+7 rpc R e gi s t e rPl a y e r ( R e gi s t e rR e q u e s t ) r e t u r n s ( R e gi s t e rR e s p o n s e ) {}
+8 rpc Fi n ali z eM a t c h ( Fi n ali z e R e q u e s t ) r e t u r n s ( Fi n ali z e R e s p o n s e ) {}
+9 rpc P r o c e s s V i s i t ( Vi si t R e q u e s t ) r e t u r n s ( Vi si tR e s p o n s e ) {}
+10 rpc Li s tM a tche s ( Li s tR e q u e s t ) r e t u r n s ( Li s tR e s p o n s e ) {}
+11 rpc WatchMatch (WatchRequest ) r e t u r n s ( stream WatchResponse ) {}
+12 }
+13
+14 message MatchRequest {
+15 s t r i n g userName = 1 ;
+16 s t r i n g matchType = 2 ;
+17 }
+18
+19 message MatchResponse {
+20 b y t e s matchId = 1 ;
+21 }
+22
+23 // The r e q u e s t message c o n t ai ni n g the u se r ' s name .
+24 message R e gi s t e rR e q u e s t {
+25 b y t e s matchId = 1 ;
+26 s t r i n g userName = 2 ;
+27 }
+28
+29 message R e gi s t e rR e s p o n s e {
+30 i n t 3 2 pl a y e r I n d e x = 1 ;
+31 }
+32
+33 message Fi n ali z e R e q u e s t {
+34 b y t e s matchId = 1 ;
+35 }
+36
+37 message Fi n ali z e R e s p o n s e {
+38 }
+39
+40 message Dart {
+41 enum D a r tM ul ti pli e r {
+42 MISS = 0 ;
+43 SINGLE = 1 ;
+44 DOUBLE = 2 ;
+45 TREBLE = 3 ;
+46 }
+47 D a r tM ul ti pli e r m u l t i p l i e r = 1 ;
+48 i n t 3 2 segment = 2 ;
+49 }
+50
+51 message Vi si t R e q u e s t {
+52 b y t e s matchId = 1 ;
+53 i n t 3 2 pl a y e r I n d e x = 2 ;
+54 r e p e a t e d Dart v i s i t = 3 ;
+4
+55 }
+56
+57 // The r e s p o n s e message c o n t ai ni n g the g r e e t i n g s
+58 message Vi si tR e s p o n s e {
+59 i n t 3 2 r e s u l t = 1 ;
+60 s t r i n g message = 2 ;
+61 }
+62
+63 message Li s tR e q u e s t {
+64 b y t e s matchId = 1 ;
+65 i n t 3 2 pl a y e r I n d e x = 2 ;
+66 r e p e a t e d Dart v i s i t = 3 ;
+67 }
+68
+69 message Pl a ye r {
+70 s t r i n g userName = 1 ;
+71 i n t 3 2 pl a y e r I n d e x = 2 ;
+72 }
+73
+74 message Match {
+75 r e p e a t e d Pl a ye r p l a y e r s = 1 ;
+76 }
+77
+78 // The r e s p o n s e message c o n t ai ni n g the g r e e t i n g s
+79 message Li s tR e s p o n s e {
+80 r e p e a t e d Match matches = 1 ;
+81 }
+82
+83 message WatchRequest {
+84 // b y t e s matchId = 1 ;
+85 }
+86
+87 message WatchResponse {
+88 Pl a ye r pl a y e r = 1 ;
+89 r e p e a t e d Dart d a r t s = 2 ;
+90 i n t 3 2 s c o r e = 3 ;
+91 }
